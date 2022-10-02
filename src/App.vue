@@ -14,26 +14,35 @@
           <h2>Pending list</h2>
           <ul>
             <li v-for="item in list" key="item.id">
-              <span @click="markItem(item, 1)">{{item}}</span>
+              <span @click="markItem(item, 1)">
+                <img src="../src/assets/square.svg" />
+                {{item}}
+              </span>
               <i @click="deleteItem(item, 1)">✘</i>
             </li>
           </ul>
-
         </div>
 
 
         <div id="doneList">
-          <h2>Done list</h2>
-          <ul>
-            <li v-for="itemDone in doneList" key="itemDone.id">
-              <span @click="markItem(itemDone, 2)">{{itemDone}}</span>
-              <i @click="deleteItem(itemDone, 2)">✘</i>
-            </li>
-          </ul>
+          <div>
+            <h2>Done list</h2>
+            <ul>
+              <li v-for="itemDone in doneList" key="itemDone.id" >
+                <span @click="markItem(itemDone, 2)">
+                  <img src="../src/assets/check-square.svg" />
+                  {{itemDone}}
+                </span>
+                <i @click="deleteItem(itemDone, 2)">✘</i>
+              </li>
+            </ul>
+          </div>
+
+          <p class="tip">Click an item in Peding List to mark as done</p>
         </div>
       </div>
 
-      <button v-if="doneList.length > 0 || list.length > 0" @click="cleanToDoList">Clean list</button>
+      <button @click="cleanToDoList">Clean list</button>
     </main>
 
   </div>
@@ -41,10 +50,11 @@
 
 
 <script>
+  import ItemList from './components/ItemList.vue';
 
 export default {
   components: {
-
+    ItemList
   },
 
   data() {
@@ -54,7 +64,6 @@ export default {
       doneList: JSON.parse(localStorage.getItem('doneListStore')) || [],
       toDoItem: "",
     };
-    
   },
 
   methods: {
@@ -96,9 +105,7 @@ export default {
         this.listStorage.setItem("doneListStore", JSON.stringify(this.doneList))
       }
     }
-
   }
-
 }
 </script>
 
@@ -135,21 +142,30 @@ export default {
     }
 
     #list {
+      /* display: flex;
+      flex-direction: column; */
 
       #pendingList {
         min-height: 250px;
       }
 
       #doneList {
-
         min-height: 200px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
         
         span {
           text-decoration: line-through;
         }
+
+        .tip {
+          color: gray;
+          font-size: small;
+        }
       }
 
-      ul{
+      ul {
         padding: 1rem;
         text-align: start;
 
@@ -157,6 +173,12 @@ export default {
         color: black;
         display: flex;
         justify-content: space-between;
+        margin: 0.2rem 0;
+        overflow:auto;
+
+          span {
+            font-weight: 600;
+          }
         
           i{  
             color: red;
@@ -165,6 +187,11 @@ export default {
           i:hover {
             cursor: pointer;
           }
+        }
+
+        li:hover {
+          background-color: rgb(175, 175, 175, 0.2);
+          cursor: pointer
         }
       }
     }
