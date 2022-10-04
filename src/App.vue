@@ -86,11 +86,8 @@
 
 
 <script>
-  
+
 export default {
-  components: {
-    ItemList,
-  },
 
   data() {
     return {
