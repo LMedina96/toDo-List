@@ -1,4 +1,3 @@
-
 <template>
   <div id="body">
     <main>
@@ -87,8 +86,7 @@
 
 
 <script>
-import ItemList from "./components/ItemList.vue";
-
+  
 export default {
   components: {
     ItemList,
